@@ -1,141 +1,91 @@
-# Планировщик
+# Planner
 
-Десктопное приложение-календарь на **Electron + React + TypeScript**.  
-Тёмный минималистичный интерфейс (`#212121` / `#00e116`), данные хранятся локально в браузерном хранилище Electron.
+A minimalist desktop calendar and task planner application built with **Electron + React + TypeScript**.  
+Features a sleek dark theme (`#212121` / `#00e116`), offline-first local storage, and Obsidian-like node graphs for tracking personal goals.
 
-## Требования
+---
+
+## Features
+
+### Calendar View
+- Full-screen monthly layout with clean day-grid indicators.
+- Event markers:
+  - **Green dot**: Scheduled time-block tasks.
+  - **Blue dot**: Mandatory / deadline tasks without specific hours.
+- Collapsible and resizable side panel for focused day inspection.
+
+### Daily Schedule
+- **Time-blocked tasks**: Visual timeline from 06:00 to 23:00.
+- **Mandatory items**: Untimed daily checklist.
+- Recurrence support: Single instance, daily, weekdays, weekly, and monthly.
+- Isolated status: Marking a recurring task as completed only affects the selected date.
+
+### Goals & Roadmap
+- Dedicated goal tracking with extended descriptions.
+- Individual visual graph canvas for each goal.
+- Interactive nodes and edges with draggable positioning (powered by React Flow).
+
+---
+
+## Tech Stack
+
+- **Frontend:** React 19, TypeScript, Vite
+- **Desktop Runtime:** Electron
+- **State Management:** Zustand (with local persistence)
+- **Graph & Utilities:** `@xyflow/react`, `lucide-react`, `date-fns`
+
+---
+
+## Prerequisites
 
 - [Node.js](https://nodejs.org/) 20+ (LTS)
-- npm (идёт вместе с Node)
-- Windows (для сборки `.exe`; разработка через `npm run dev` тоже на Windows)
-
-## Быстрый старт
-
-```bash
-cd planner
-npm install
-npm run dev
-```
-
-Откроется **отдельное окно** приложения, не вкладка браузера.
-
-## Скрипты
-
-| Команда | Описание |
-|--------|----------|
-| `npm run dev` | Vite + Electron, режим разработки |
-| `npm run build` | Проверка TypeScript и сборка фронтенда в `dist/` |
-| `npm run dist` | Сборка установщика Windows в `release/` |
-
-## Возможности
-
-### Календарь
-- Месяц на весь экран, число дня в левом верхнем углу ячейки
-- Точки: зелёная — задачи по времени, голубая — обязательные
-- Клик по дню → панель справа (ширину можно менять, потянув за левый край)
-
-### День
-- **Задачи по времени** — лента 6:00–23:00, блоки как в Microsoft Teams
-- **Обязательные** — список без времени
-- Создание, редактирование, удаление, повторы (разово, каждый день, будни, еженедельно, ежемесячно)
-- «Выполнено» отмечается **только на выбранную дату** (повторяющиеся задачи на другие дни не меняются)
-
-### Цели и путь
-- Список целей с описанием
-- У каждой цели **свой граф** на вкладке «Путь»
-- Кнопка **«Создать путь» / «Открыть путь»** у каждой цели
-- Узлы и связи, перетаскивание, как в Obsidian
-
-## Структура проекта
-
-```
-planner/
-├── electron/          # Главный процесс Electron (окно приложения)
-├── src/
-│   ├── components/    # UI: календарь, день, цели, граф
-│   ├── hooks/
-│   ├── store/         # Zustand + сохранение данных
-│   ├── styles/
-│   ├── types/
-│   └── utils/
-├── public/
-├── index.html
-├── package.json
-├── package-lock.json
-├── tsconfig.json
-├── tsconfig.node.json
-└── vite.config.ts
-```
-
-## Технологии
-
-- React 19, Vite, TypeScript
-- Electron
-- Zustand (persist)
-- date-fns, @xyflow/react, lucide-react
+- npm (bundled with Node.js)
+- OS: Windows (for compiling the native `.exe` installer)
 
 ---
 
-## GitHub: что коммитить
+## Getting Started
 
-Репозиторий лучше делать **из папки `planner`** (корень репо = `planner`), либо положить `planner` в корень и не коммитить лишнее в родительской папке «Расписание».
+1. **Clone the repository:**
+   `git clone [https://github.com/DetectiveFI/Planner.git](https://github.com/DetectiveFI/Planner.git)`
+   `cd Planner`
 
-### ✅ Коммитить
+2. **Install dependencies:**
+   `npm install`
 
-| Путь | Зачем |
-|------|--------|
-| `electron/` | Запуск десктопного окна |
-| `src/` | Весь код приложения |
-| `public/` | Статика |
-| `index.html` | Точка входа Vite |
-| `package.json` | Зависимости и скрипты |
-| `package-lock.json` | Фиксированные версии (нужен для `npm ci`) |
-| `vite.config.ts` | Сборка |
-| `tsconfig.json`, `tsconfig.node.json` | TypeScript |
-| `README.md` | Документация |
-| `.gitignore` | Исключения для Git |
-
-Опционально: `.vscode/extensions.json` (рекомендации расширений).
-
-### ❌ Не коммитить
-
-| Путь | Почему |
-|------|--------|
-| `node_modules/` | Скачивается через `npm install` |
-| `dist/` | Результат `npm run build` |
-| `release/` | Установщики `.exe` (тяжёлые, собираются локально) |
-| Логи, `.env` с секретами | Не нужны в репо |
-
-Эти папки уже перечислены в `.gitignore`.
-
-### Первый push (пример)
-
-Из папки `planner`:
-
-```bash
-git init
-git add .
-git status
-git commit -m "Initial commit: desktop planner app"
-git branch -M main
-git remote add origin https://github.com/ВАШ_ЛОГИН/ВАШ_РЕПО.git
-git push -u origin main
-```
-
-Перед `git add` проверьте `git status`: не должно быть `node_modules`, `dist`, `release`.
-
-### Если репозиторий в родительской папке «Расписание»
-
-Коммитьте только содержимое проекта, например:
-
-```bash
-git add planner/
-```
-
-Не добавляйте без нужды пустой `.vscode/` в корне, если там нет полезных настроек для команды.
+3. **Start development mode:**
+   `npm run dev`
 
 ---
 
-## Лицензия
+## Available Scripts
 
-Приватный / личный проект — при публикации на GitHub укажите лицензию по желанию.
+| Script | Description |
+|---|---|
+| `npm run dev` | Runs Vite dev server and opens the Electron desktop window |
+| `npm run build` | Runs TypeScript type checking and builds the web bundle to `dist/` |
+| `npm run dist` | Packages the application into a Windows executable installer in `release/` |
+
+---
+
+## Project Structure
+
+    planner/
+    ├── electron/          # Electron main process and window configuration
+    ├── src/
+    │   ├── components/    # UI components (Calendar, Day view, Goals, Graph)
+    │   ├── hooks/         # Custom React hooks
+    │   ├── store/         # Zustand store and persistence layer
+    │   ├── styles/        # Global styles and design tokens
+    │   ├── types/         # TypeScript type definitions
+    │   └── utils/         # Helper functions
+    ├── public/            # Static assets
+    ├── index.html         # Vite HTML entry point
+    ├── package.json
+    └── vite.config.ts
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
