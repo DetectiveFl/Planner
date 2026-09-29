@@ -1,0 +1,107 @@
+.month-calendar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  padding: 28px clamp(16px, 3vw, 48px) 20px;
+}
+
+.month-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.month-header h1 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: auto repeat(6, minmax(72px, 1fr));
+  gap: clamp(6px, 1vw, 10px);
+  flex: 1;
+  min-height: 0;
+}
+
+.month-weekday {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  padding-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.month-cell {
+  min-height: 0;
+  height: 100%;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  background: var(--bg-elevated);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 10px 12px;
+  transition: border-color var(--transition), background var(--transition),
+    transform var(--transition);
+  position: relative;
+  text-align: left;
+}
+
+.month-cell:hover {
+  border-color: var(--border);
+  background: var(--bg-hover);
+}
+
+.month-cell.muted {
+  opacity: 0.35;
+}
+
+.month-cell.today .month-cell-num {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.month-cell.selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent-soft);
+  background: rgba(0, 225, 22, 0.06);
+}
+
+.month-cell-num {
+  font-size: clamp(0.95rem, 1.2vw, 1.2rem);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.month-dots {
+  display: flex;
+  gap: 4px;
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+}
+
+.month-dots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: block;
+}
+
+.month-dots .dot.timed {
+  background: var(--accent);
+}
+
+.month-dots .dot.mandatory {
+  background: #7dd3fc;
+}

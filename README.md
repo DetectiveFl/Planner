@@ -75,3 +75,67 @@ planner/
 - date-fns, @xyflow/react, lucide-react
 
 ---
+
+## GitHub: что коммитить
+
+Репозиторий лучше делать **из папки `planner`** (корень репо = `planner`), либо положить `planner` в корень и не коммитить лишнее в родительской папке «Расписание».
+
+### ✅ Коммитить
+
+| Путь | Зачем |
+|------|--------|
+| `electron/` | Запуск десктопного окна |
+| `src/` | Весь код приложения |
+| `public/` | Статика |
+| `index.html` | Точка входа Vite |
+| `package.json` | Зависимости и скрипты |
+| `package-lock.json` | Фиксированные версии (нужен для `npm ci`) |
+| `vite.config.ts` | Сборка |
+| `tsconfig.json`, `tsconfig.node.json` | TypeScript |
+| `README.md` | Документация |
+| `.gitignore` | Исключения для Git |
+
+Опционально: `.vscode/extensions.json` (рекомендации расширений).
+
+### ❌ Не коммитить
+
+| Путь | Почему |
+|------|--------|
+| `node_modules/` | Скачивается через `npm install` |
+| `dist/` | Результат `npm run build` |
+| `release/` | Установщики `.exe` (тяжёлые, собираются локально) |
+| Логи, `.env` с секретами | Не нужны в репо |
+
+Эти папки уже перечислены в `.gitignore`.
+
+### Первый push (пример)
+
+Из папки `planner`:
+
+```bash
+git init
+git add .
+git status
+git commit -m "Initial commit: desktop planner app"
+git branch -M main
+git remote add origin https://github.com/ВАШ_ЛОГИН/ВАШ_РЕПО.git
+git push -u origin main
+```
+
+Перед `git add` проверьте `git status`: не должно быть `node_modules`, `dist`, `release`.
+
+### Если репозиторий в родительской папке «Расписание»
+
+Коммитьте только содержимое проекта, например:
+
+```bash
+git add planner/
+```
+
+Не добавляйте без нужды пустой `.vscode/` в корне, если там нет полезных настроек для команды.
+
+---
+
+## Лицензия
+
+Приватный / личный проект — при публикации на GitHub укажите лицензию по желанию.
